@@ -3,6 +3,12 @@ const form = document.querySelector(".top-banner form");
 const input = document.querySelector(".top-banner input");
 const msg = document.querySelector(".top-banner .msg");
 const list = document.querySelector(".ajax-section .cities");
+var today = new Date();
+var dd = String(today.getDate()).padStart(2, '0');
+var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+var yyyy = today.getFullYear();
+
+today = mm + '/' + dd + '/' + yyyy;
 
 const apiKey = "4d8fb5b93d4af21d66a2948710284366";
 
@@ -45,12 +51,14 @@ form.addEventListener("submit", e => {
     }
   }
 
+
   //ajax here
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${inputVal}&appid=${apiKey}&units=metric`;
 
   fetch(url)
     .then(response => response.json())
     .then(data => {
+
       const { main, name, sys, weather, wind } = data;
       const icon = `https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/${
         weather[0]["icon"]
@@ -63,9 +71,12 @@ form.addEventListener("submit", e => {
           <span>${name}</span>
           <sup>${sys.country}</sup>
         </h2>
+        <div class="date-div">${today}</div>
         <div class="city-temp">${Math.round((main.temp * 1.80 + 32))}<sup>°F</sup></div>
         <div class="wind-speed">${wind.speed}<sup> MPH Wind Speed</sup></div>
         <div class="wind-speed">${main.humidity}<sup> % Humidity</sup></div>
+        <div class="wind-speed">${wind.speed}<sup> UV Rating</sup></div>
+
         <figure>
           <img class="city-icon" src="${icon}" alt="${
         weather[0]["description"]

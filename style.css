@@ -189,6 +189,13 @@ body {
   color: var(--text_dark);
 }
 
+.ajax-section .date-div {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 10px;
+  color: var(--text_dark);
+}
+
 .ajax-section .city sup {
   font-size: 0.5em;
 }
