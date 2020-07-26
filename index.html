@@ -17,22 +17,29 @@
     <section class="top-banner">
         <div class="container">
             <h1 class="heading">Weather Dashboard</h1>
+
+
             <form>
                 <input type="text" id="searchbox" placeholder="Search for a city" autofocus> <button
                     type="submit">SUBMIT</button>
                 <span class="msg"></span>
             </form>
         </div>
+
         <section class="ajax-section">
-            <div class="container">
-                <h2 class="headerbar">Daily Forecast</h2>
+
+            <div class="container">          
+            
+                <h2 class="headerbar">Daily Forecast</h2>    
+                <button  id = 'clear' onClick="clear()">Clear</button>
                 <ul class="cities"></ul>
             </div>
 
 
         <section class="ajax-section">
             <div class="container">
-                <h2 class="headerbar">Weekly Forecast</h2>
+                <h2 class="headerbar">Weekly Forecast
+                </h2>
                 <div class="weekforecast"></div>
             </div>
         </section>

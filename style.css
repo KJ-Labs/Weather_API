@@ -41,6 +41,12 @@ button {
   height: 60px
 }
 
+#clear {
+  cursor: pointer;
+  background-color: #70E1E0;
+  height: 60px
+}
+
 ul.cities {
   background-color: white;
 }
@@ -92,6 +98,13 @@ body {
   text-align: center;
 }
 
+
+#clear {
+  text-align: center;
+}
+
+
+
 /* SECTION #1
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .top-banner {
@@ -135,6 +148,17 @@ body {
 
 .top-banner form button:hover {
   background: var(--darkred);
+}
+
+.button {
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  padding: 15px 20px;
+  margin-left: 15px;
+  border-radius: 5px;
+  background: var(--red);
+  transition: background 0.3s ease-in-out;
 }
 
 .top-banner form .msg {

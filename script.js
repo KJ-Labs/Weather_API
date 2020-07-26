@@ -85,11 +85,10 @@ form.addEventListener("submit", e => {
         fetch(url)
             .then(response => response.json())
             .then(data => {
-                const { main, name, sys, weather, wind } = data;
+                const { main, name, sys, weather, wind,  coord } = data;
                 const icon = `https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/${
                     weather[0]["icon"]
                     }.svg`;
-
                 const li = document.createElement("li");
                 li.classList.add("city");
                 const markup = `
@@ -101,7 +100,6 @@ form.addEventListener("submit", e => {
         <div class="city-temp">${Math.round((main.temp * 1.80 + 32))}<sup>°F</sup></div>
         <div class="wind-speed">${wind.speed}<sup> MPH Wind Speed</sup></div>
         <div class="wind-speed">${main.humidity}<sup> % Humidity</sup></div>
-        <div class="wind-speed">${wind.speed}<sup> UV Rating</sup></div>
         <figure>
           <img class="city-icon" src="${icon}" alt="${
                     weather[0]["description"]
@@ -129,11 +127,14 @@ form.addEventListener("submit", e => {
             .then(response => response.json())
             .then(data => {
                 console.log("DATA: ", data);
+  
                 for (let i = 0; i < data.list.length; i++) {
                     if (data.list[i].dt_txt.includes("12:00:00")) {
                         const div = document.createElement("div");
                         div.className = 'block';
                         div.classList.add("weekforecast2");
+                        const uvURL =`https://api.openweathermap.org/data/2.5/uvi/forecast?&units=imperial&appid=${apiKey}&lat=${data.city.coord.lat}&lon=${data.city.coord.lon}`
+                        console.log(uvUrl);
                         const icon = `https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/${data.list[i].weather[0].icon}.svg`;
                         const markup = `
                   <div class="forecast5">${data.city.name}</div>
@@ -142,6 +143,7 @@ form.addEventListener("submit", e => {
                   <div class="forecast5">${data.list[i].wind.speed}<sup> Wind Speed</sup></div>
                   <div class="forecast5">${data.list[i].main.humidity}<sup>% Humidity</sup></div>
                   <div class="forecast5">${data.list[i].weather[0].description}</div>
+                  <div class="forecast5">${data.city.coord.lat}</div>
                   <figure>
                   <img class="city-icon" src="${icon}" alt="${
                             data.list[i].weather[0].description
@@ -156,33 +158,12 @@ form.addEventListener("submit", e => {
                         list2.prepend(div);
 
 
-                    };
+                        };
                 };
             });
     };
     fiveDayForecast()
 
-    // $(document).ready(function () {
-    //     $(".submit").on("click", function () {
-    //         var textvalue = $(this).siblings('.cities').find('span').val();;
-    //         localStorage.setItem("testKey", textvalue);
-
-    //     });
-
-    //     //Prints it back to the page, so then you can see it even if you refresh. 
-
-
-    // });
-
-    //Loop to log text input to local storage to prevent refreshing removing the information. 
-    // function renderText() {
-    //     //data starts at 9 am then continues using military hours
-    //     for (var i = 9; i <= 17; i++) {
-    //         $("span").val(localStorage.getItem("testKey"));
-    //     }
-    // }
-
-    renderText();
     msg.textContent = "";
     form.reset();
     input.focus();
