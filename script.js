@@ -9,7 +9,7 @@ var mm = String(today.getMonth() + 1).padStart(2, '0');
 var yyyy = today.getFullYear();
 today = mm + '/' + dd + '/' + yyyy;
 const apiKey = "4d8fb5b93d4af21d66a2948710284366";
-var uv; 
+
 
 let cardDataArray = [];
 const retrievedData = JSON.parse(localStorage.getItem('cardDataArray')) || [];
@@ -17,6 +17,8 @@ for (let i = 0; i < retrievedData.length; i++) {
     const icon = `https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/${
         retrievedData[i].weather[0]["icon"]
                     }.svg`;
+
+                    console.log(cardDataArray);
     const li = document.createElement("li");
                 li.classList.add("city");
                 const markup = `
@@ -28,7 +30,7 @@ for (let i = 0; i < retrievedData.length; i++) {
         <div class="city-temp">${Math.round((retrievedData[i].main.temp * 1.80 + 32))}<sup>°F</sup></div>
         <div class="wind-speed">${retrievedData[i].wind.speed}<sup> MPH Wind Speed</sup></div>
         <div class="wind-speed">${retrievedData[i].main.humidity}<sup> % Humidity</sup></div>
-        <div class="wind-speed"><sup> UV Index</sup></div>
+        <div class="wind-speed">${retrievedData[i].uv}<sup> UV Index</sup></div>
         <figure>
           <img class="city-icon" src="${icon}" alt="${
             retrievedData[i].weather[0]["description"]
@@ -85,9 +87,9 @@ form.addEventListener("submit", e => {
         fetch(url)
             .then(response => response.json())
             .then(data => {
-                const { main, name, sys, weather, wind } = data;
-                function uvindex(lat, lon) {
-                    fetch("http://api.openweathermap.org/data/2.5/uvi?appid=4d8fb5b93d4af21d66a2948710284366&lat=" + lat + "&lon=" + lon)
+                const { main, name, sys, weather, wind, coord } = data;
+               
+                    fetch("http://api.openweathermap.org/data/2.5/uvi?appid=4d8fb5b93d4af21d66a2948710284366&lat=" + data.coord.lat + "&lon=" + data.coord.lon)
                     .then(response => response.json())
                     .then(data => {console.log(data.value)
                         var uv = data.value;
@@ -99,10 +101,7 @@ form.addEventListener("submit", e => {
                     } else {
                         console.log('dangerous')
                     }
-                    return uv; 
-                    })
-                };
-                uvindex(data.coord.lat, data.coord.lon);
+                    
                 console.log(data); 
                 console.log(uv);
                 const icon = `https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/${
@@ -119,7 +118,7 @@ form.addEventListener("submit", e => {
         <div class="city-temp">${Math.round((main.temp * 1.80 + 32))}<sup>°F</sup></div>
         <div class="wind-speed">${wind.speed}<sup> MPH Wind Speed</sup></div>
         <div class="wind-speed">${main.humidity}<sup> % Humidity</sup></div>
-        <div class="wind-speed">${uv}<sup> UV Index</sup></div>
+        <div class="wind-speedred" >${uv}<sup> UV Index</sup></div>
         <figure>
           <img class="city-icon" src="${icon}" alt="${
                     weather[0]["description"]
@@ -133,7 +132,7 @@ form.addEventListener("submit", e => {
                 list.prepend(li);
                 cardDataArray.push({ main, name, sys, weather, wind })
                 localStorage.setItem('cardDataArray', JSON.stringify(cardDataArray))
-       
+                })
             })
             .catch(() => {
                 msg.textContent = "Please search for a valid city";

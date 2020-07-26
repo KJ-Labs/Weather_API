@@ -223,7 +223,12 @@ body {
   margin-top: 10px;
   color: var(--text_dark);
 }
-
+.ajax-section .wind-speedred {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-top: 10px;
+  color: red;
+}
 
 .ajax-section .forecast5 {
   font-size: 1.7rem;
@@ -246,7 +251,7 @@ body {
 }
 
 .block {
-  float: right;
+  display: inline-block;
 }
 
 
