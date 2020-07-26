@@ -111,11 +111,11 @@ form.addEventListener("submit", e => {
                         div.classList.add("weekforecast2");
 
                   const markup = `
-                  <div class="wind-speed">${name}<sup>Namegoeshere</sup></div>
-                  <div class="wind-speed">${data.list[i].dt_txt}<sup></sup></div>
-                  <div class="wind-speed">${Math.round((data.list[i].main.temp * 1.80 + 32))}<sup>°F</sup></div>
-                  <div class="wind-speed">${data.list[i].wind.speed}<sup> Wind Speed</sup></div>
-                  <div class="wind-speed">${data.list[i].main.humidity}<sup>% Humidity</sup></div>
+                  <div class="forecast5">${name}<sup>Namegoeshere</sup></div>
+                  <div class="forecast5">${data.list[i].dt_txt}<sup></sup></div>
+                  <div class="forecast5">${Math.round((data.list[i].main.temp * 1.80 + 32))}<sup>°F</sup></div>
+                  <div class="forecast5">${data.list[i].wind.speed}<sup> Wind Speed</sup></div>
+                  <div class="forecast5">${data.list[i].main.humidity}<sup>% Humidity</sup></div>
                       `;
                         div.innerHTML = markup;
                         list2.appendChild(div);
