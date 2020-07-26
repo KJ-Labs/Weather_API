@@ -27,6 +27,14 @@ h1 {
   text-align: center;
 }
 
+
+.headerbar {
+  background-color:  #43ACCB; 
+  text-align: center;
+  color:white; 
+
+}
+
 button {
   cursor: pointer;
   background-color: #70E1E0;
@@ -80,6 +88,9 @@ body {
   padding: 0 15px;
 }
 
+#searchbox {
+  text-align: center;
+}
 
 /* SECTION #1
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -149,7 +160,7 @@ body {
 
 .ajax-section .city {
   position: relative;
-  padding: 40px 10%;
+  padding: 10px 10%;
   border-radius: 20px;
   background: var(--text_light);
   color: var(--text_med);
