@@ -95,11 +95,11 @@ form.addEventListener("submit", e => {
                         var uv = data.value;
                         console.log('your uv is ' + uv);
                     if (uv < 3){
-                        console.log('mild');
+                    uv.color = "green" 
                     } else if (uv <7 ){
-                        console.log('normal');
+                        uv.color = "yellow" 
                     } else {
-                        console.log('dangerous')
+                        uv.color = "red" 
                     }
                     
                 console.log(data); 
@@ -118,7 +118,7 @@ form.addEventListener("submit", e => {
         <div class="city-temp">${Math.round((main.temp * 1.80 + 32))}<sup>°F</sup></div>
         <div class="wind-speed">${wind.speed}<sup> MPH Wind Speed</sup></div>
         <div class="wind-speed">${main.humidity}<sup> % Humidity</sup></div>
-        <div class="wind-speedred" >${uv}<sup> UV Index</sup></div>
+        <div class="wind-speed" >${uv}<sup> UV Index</sup></div>
         <figure>
           <img class="city-icon" src="${icon}" alt="${
                     weather[0]["description"]
