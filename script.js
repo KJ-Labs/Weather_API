@@ -86,7 +86,7 @@ form.addEventListener("submit", e => {
         </figure>
       `;
                 li.innerHTML = markup;
-                list.appendChild(li);
+                list.prepend(li);
 
             })
             .catch(() => {
