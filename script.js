@@ -116,7 +116,7 @@ form.addEventListener("submit", e => {
                           <span>${name}</span>
                           <sup>${sys.country}</sup>
                         </h2>
-                        <div class="city-temp">${Math.round((main.temp * 1.80 + 32))}<sup>°F</sup></div>
+                        <div class="city-temp">${data.list[0].wind.speed}<sup>°F</sup></div>
 
                         <figure>
                           <img class="city-icon" src="${icon}" alt="${
