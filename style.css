@@ -212,13 +212,11 @@ body {
 }
 
 .block {
-  display: inline;
+
+  float: right;
 }
 
-.weekforecast {
 
-  display: inline;
-}
 .ajax-section .city-name sup {
   padding: 0.2em 0.6em;
   border-radius: 30px;
