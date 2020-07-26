@@ -107,27 +107,24 @@ form.addEventListener("submit", e => {
                 console.log("data.list[0].wind.speed: ", data.list[0].wind.speed);
 
 
-                for (var i = 0; i < data.list.length; i + 8) {
+                for(let i=0; i< data.list.length; i++){
                     if (data.list[i].dt_txt.includes("12:00:00")) {
-                        const li = document.createElement("li");
-                        li.classList.add("5dayforecast");
+                        const div = document.createElement("div");
+                        div.className = 'block';
+                        div.classList.add("weekforecast2");
 
-                        const markup = `
-                        <h2 class="city-name" data-name="${name},${sys.country}">
-                          <span>${name}</span>
-                          <sup>${sys.country}</sup>
-                        </h2>
-                        <div class="city-temp">${data.list[0].wind.speed}<sup>°F</sup></div>
+                  const markup = `
+                  <figure>
+                  <div class="city-temp">${Math.round((data.list[0].main.temp * 1.80 + 32))}<sup>°F</sup></div>
+                  <div class="city-temp">${data.list[0].wind.speed}<sup>Wind Speed</sup></div>
+                  <div class="city-temp">${data.list[0].main.humidity}<sup>Humidity</sup></div>
 
-                        <figure>
-                          <img class="city-icon" src="${icon}" alt="${
-                            weather[0]["description"]
-                            }">
-                          <figcaption>${weather[0]["description"]}</figcaption>
-                        </figure>
+
+                    
+                      </figure>
                       `;
-                        li.innerHTML = markup;
-                        list2.appendChild(li);
+                        div.innerHTML = markup;
+                        list2.appendChild(div);
 
                         //append the various html and information returned from the data object such as dataInfo.weather[0].description
                     };
