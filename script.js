@@ -1,4 +1,3 @@
-
 const form = document.querySelector(".top-banner form");
 const input = document.querySelector(".top-banner input");
 const msg = document.querySelector(".top-banner .msg");
@@ -11,6 +10,37 @@ var yyyy = today.getFullYear();
 today = mm + '/' + dd + '/' + yyyy;
 const apiKey = "4d8fb5b93d4af21d66a2948710284366";
 
+let cardDataArray = [];
+const retrievedData = JSON.parse(localStorage.getItem('cardDataArray')) || [];
+for (let i = 0; i < retrievedData.length; i++) {
+    const icon = `https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/${
+        retrievedData[i].weather[0]["icon"]
+                    }.svg`;
+    const li = document.createElement("li");
+                li.classList.add("city");
+                const markup = `
+        <h2 class="city-name" data-name="${retrievedData[i].name},${retrievedData[i].sys.country}">
+          <span>${retrievedData[i].name}</span>
+          <sup>${retrievedData[i].sys.country}</sup>
+        </h2>
+        <div class="date-div">${today}</div>
+        <div class="city-temp">${Math.round((retrievedData[i].main.temp * 1.80 + 32))}<sup>°F</sup></div>
+        <div class="wind-speed">${retrievedData[i].wind.speed}<sup> MPH Wind Speed</sup></div>
+        <div class="wind-speed">${retrievedData[i].main.humidity}<sup> % Humidity</sup></div>
+        <div class="wind-speed">${retrievedData[i].wind.speed}<sup> UV Rating</sup></div>
+        <figure>
+          <img class="city-icon" src="${icon}" alt="${
+            retrievedData[i].weather[0]["description"]
+
+
+                    }">
+          <figcaption>${retrievedData[i].weather[0]["description"]}</figcaption>
+        </figure>
+      `;
+                li.innerHTML = markup;
+                list.prepend(li);
+    cardDataArray.push(retrievedData[i])
+}
 
 //listener for button
 form.addEventListener("submit", e => {
@@ -83,7 +113,8 @@ form.addEventListener("submit", e => {
       `;
                 li.innerHTML = markup;
                 list.prepend(li);
-
+                cardDataArray.push({ main, name, sys, weather, wind })
+                localStorage.setItem('cardDataArray', JSON.stringify(cardDataArray))
             })
             .catch(() => {
                 msg.textContent = "Please search for a valid city";
@@ -131,25 +162,25 @@ form.addEventListener("submit", e => {
     };
     fiveDayForecast()
 
-    $(document).ready(function () {
-        $(".submit").on("click", function () {
-            var textvalue = $(this).siblings('.cities').find('span').val();;
-            localStorage.setItem(textvalue);
+    // $(document).ready(function () {
+    //     $(".submit").on("click", function () {
+    //         var textvalue = $(this).siblings('.cities').find('span').val();;
+    //         localStorage.setItem("testKey", textvalue);
 
-        });
+    //     });
 
-        //Prints it back to the page, so then you can see it even if you refresh. 
+    //     //Prints it back to the page, so then you can see it even if you refresh. 
 
 
-    });
+    // });
 
     //Loop to log text input to local storage to prevent refreshing removing the information. 
-    function renderText() {
-        //data starts at 9 am then continues using military hours
-        for (var i = 9; i <= 17; i++) {
-            $("span").val(localStorage.getItem(i));
-        }
-    }
+    // function renderText() {
+    //     //data starts at 9 am then continues using military hours
+    //     for (var i = 9; i <= 17; i++) {
+    //         $("span").val(localStorage.getItem("testKey"));
+    //     }
+    // }
 
     renderText();
     msg.textContent = "";
