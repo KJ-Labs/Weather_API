@@ -87,7 +87,7 @@ form.addEventListener("submit", e => {
       `;
                 li.innerHTML = markup;
                 list.appendChild(li);
-                list.appendChild(li);
+
             })
             .catch(() => {
                 msg.textContent = "Please search for a valid city";
@@ -98,27 +98,39 @@ form.addEventListener("submit", e => {
     function fiveDayForecast(data) {
 
         const url = `https://api.openweathermap.org/data/2.5/forecast?q=${inputVal}&appid=${apiKey}&units=metric`
+      
         fetch(url)
             .then(response => response.json())
             .then(data => {
 
-             
+
                 console.log("DATA: ", data);
-                for(let i=0; i< data.list.length; i++){
+
+                for (let i = 0; i < data.list.length; i++) {
                     if (data.list[i].dt_txt.includes("12:00:00")) {
                         const div = document.createElement("div");
                         div.className = 'block';
                         div.classList.add("weekforecast2");
-
-                  const markup = `
-                  <div class="forecast5">${data.city.name}<sup></sup></div>
-                  <div class="forecast5">${data.list[i].dt_txt}<sup></sup></div>
+                        const icon = `https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/${data.list[i].weather[0].icon}.svg`;
+                        const markup = `
+                  <div class="forecast5">${data.city.name}</div>
+                  <div class="forecast5">${(data.list[i].dt_txt).split(' ')[0]}</div>
                   <div class="forecast5">${Math.round((data.list[i].main.temp * 1.80 + 32))}<sup>°F</sup></div>
                   <div class="forecast5">${data.list[i].wind.speed}<sup> Wind Speed</sup></div>
                   <div class="forecast5">${data.list[i].main.humidity}<sup>% Humidity</sup></div>
+                  <div class="forecast5">${data.list[i].weather[0].description}</div>
+                  <figure>
+                  <img class="city-icon" src="${icon}" alt="${
+                    data.list[i].weather[0].description
+        
+        
+                            }">
+                  <figcaption>${data.list[i].weather[0].description}</figcaption>
+                </figure>
+  
                       `;
                         div.innerHTML = markup;
-                        list2.appendChild(div);
+                        list2.prepend(div);
 
                         //append the various html and information returned from the data object such as dataInfo.weather[0].description
                     };
