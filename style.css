@@ -230,6 +230,20 @@ body {
   color: red;
 }
 
+.ajax-section .wind-speedgreen {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-top: 10px;
+  color: green;
+}
+
+.ajax-section .wind-speedgreen {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-top: 10px;
+  color: yellow;
+}
+
 .ajax-section .forecast5 {
   font-size: 1.7rem;
   font-weight: bold;

@@ -130,7 +130,7 @@ form.addEventListener("submit", e => {
       `;
                 li.innerHTML = markup;
                 list.prepend(li);
-                cardDataArray.push({ main, name, sys, weather, wind })
+                cardDataArray.push({ main, name, sys, weather, wind, uv })
                 localStorage.setItem('cardDataArray', JSON.stringify(cardDataArray))
                 })
             })
