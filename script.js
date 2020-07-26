@@ -23,9 +23,7 @@ form.addEventListener("submit", e => {
     if (listItemsArray.length > 0) {
         const filteredArray = listItemsArray.filter(el => {
             let content = "";
-            //athens,gr
             if (inputVal.includes(",")) {
-                //athens,grrrrrr->invalid country code, so we keep only the first part of inputVal
                 if (inputVal.split(",")[1].length > 2) {
                     inputVal = inputVal.split(",")[0];
                     content = el
@@ -35,7 +33,7 @@ form.addEventListener("submit", e => {
                     content = el.querySelector(".city-name").dataset.name.toLowerCase();
                 }
             } else {
-                //athens
+              
                 content = el.querySelector(".city-name span").textContent.toLowerCase();
             }
             return content == inputVal.toLowerCase();
@@ -108,8 +106,30 @@ form.addEventListener("submit", e => {
                 console.log("data.list[0].wind.speed: ", data.list[0].wind.speed);
                 console.log("wind.speed: ", wind.speed);
 
-                for (var i = 0; i < data.list.length; i++) {
+                for (var i = 0; i <i<data.length;i+8) {
                     if (data.list[i].dt_txt.includes("12:00:00")) {
+                        const li = document.createElement("li");
+                        li.classList.add("5dayforecast");
+        
+                        const markup = `
+                        <h2 class="city-name" data-name="${name},${sys.country}">
+                          <span>${name}</span>
+                          <sup>${sys.country}</sup>
+                        </h2>
+                        <div class="city-temp">${Math.round((main.temp * 1.80 + 32))}<sup>°F</sup></div>
+
+                        <figure>
+                          <img class="city-icon" src="${icon}" alt="${
+                                    weather[0]["description"]
+                
+                
+                                    }">
+                          <figcaption>${weather[0]["description"]}</figcaption>
+                        </figure>
+                      `;
+                                li.innerHTML = markup;
+                                list.appendChild(li);
+                        
                         //append the various html and information returned from the data object such as dataInfo.weather[0].description
                     };
                 };
