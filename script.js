@@ -1,24 +1,21 @@
-/*SEARCH BY USING A CITY NAME (e.g. athens) OR A COMMA-SEPARATED CITY NAME ALONG WITH THE COUNTRY CODE (e.g. athens,gr)*/
+
 const form = document.querySelector(".top-banner form");
 const input = document.querySelector(".top-banner input");
 const msg = document.querySelector(".top-banner .msg");
 const list = document.querySelector(".ajax-section .cities");
 const list2 = document.querySelector(".ajax-section .weekforecast");
-
 var today = new Date();
 var dd = String(today.getDate()).padStart(2, '0');
-var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+var mm = String(today.getMonth() + 1).padStart(2, '0');
 var yyyy = today.getFullYear();
-
 today = mm + '/' + dd + '/' + yyyy;
-
 const apiKey = "4d8fb5b93d4af21d66a2948710284366";
 
+
+//listener for button
 form.addEventListener("submit", e => {
     e.preventDefault();
     let inputVal = input.value;
-
-    //check if there's already a city
     const listItems = list.querySelectorAll(".ajax-section .city");
     const listItemsArray = Array.from(listItems);
 
@@ -51,14 +48,13 @@ form.addEventListener("submit", e => {
         }
     }
 
-    function getweather(data) {
-        //ajax here
-        const url = `https://api.openweathermap.org/data/2.5/weather?q=${inputVal}&appid=${apiKey}&units=metric`;
 
+    //current date api call 
+    function getweather(data) {
+        const url = `https://api.openweathermap.org/data/2.5/weather?q=${inputVal}&appid=${apiKey}&units=metric`;
         fetch(url)
             .then(response => response.json())
             .then(data => {
-
                 const { main, name, sys, weather, wind } = data;
                 const icon = `https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/${
                     weather[0]["icon"]
@@ -95,17 +91,13 @@ form.addEventListener("submit", e => {
     };
     getweather()
 
-    function fiveDayForecast(data) {
-
+// weekly forecast api call
+   function fiveDayForecast(data) {
         const url = `https://api.openweathermap.org/data/2.5/forecast?q=${inputVal}&appid=${apiKey}&units=metric`
-      
         fetch(url)
             .then(response => response.json())
             .then(data => {
-
-
                 console.log("DATA: ", data);
-
                 for (let i = 0; i < data.list.length; i++) {
                     if (data.list[i].dt_txt.includes("12:00:00")) {
                         const div = document.createElement("div");
@@ -121,9 +113,9 @@ form.addEventListener("submit", e => {
                   <div class="forecast5">${data.list[i].weather[0].description}</div>
                   <figure>
                   <img class="city-icon" src="${icon}" alt="${
-                    data.list[i].weather[0].description
-        
-        
+                            data.list[i].weather[0].description
+
+
                             }">
                   <figcaption>${data.list[i].weather[0].description}</figcaption>
                 </figure>
@@ -132,19 +124,36 @@ form.addEventListener("submit", e => {
                         div.innerHTML = markup;
                         list2.prepend(div);
 
-                        //append the various html and information returned from the data object such as dataInfo.weather[0].description
+
                     };
                 };
             });
     };
-
-
-
-
-
     fiveDayForecast()
 
+    $(document).ready(function () {
+        $(".saveBtn").on("click", function () {
+            var textvalue = $(this).siblings('.cities').find('span').val();;
+            localStorage.setItem(textvalue);
+
+        });
+
+        //Prints it back to the page, so then you can see it even if you refresh. 
+
+
+    });
+
+    //Loop to log text input to local storage to prevent refreshing removing the information. 
+    function renderText() {
+        //data starts at 9 am then continues using military hours
+        for (var i = 9; i <= 17; i++) {
+            $("span").val(localStorage.getItem(i));
+        }
+    }
+
+    renderText();
     msg.textContent = "";
     form.reset();
     input.focus();
+
 });
