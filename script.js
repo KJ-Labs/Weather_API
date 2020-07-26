@@ -132,7 +132,7 @@ form.addEventListener("submit", e => {
     fiveDayForecast()
 
     $(document).ready(function () {
-        $(".saveBtn").on("click", function () {
+        $(".submit").on("click", function () {
             var textvalue = $(this).siblings('.cities').find('span').val();;
             localStorage.setItem(textvalue);
 
