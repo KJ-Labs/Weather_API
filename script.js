@@ -3,6 +3,8 @@ const form = document.querySelector(".top-banner form");
 const input = document.querySelector(".top-banner input");
 const msg = document.querySelector(".top-banner .msg");
 const list = document.querySelector(".ajax-section .cities");
+const list2 = document.querySelector(".ajax-section .weekforecast");
+
 var today = new Date();
 var dd = String(today.getDate()).padStart(2, '0');
 var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -33,7 +35,7 @@ form.addEventListener("submit", e => {
                     content = el.querySelector(".city-name").dataset.name.toLowerCase();
                 }
             } else {
-              
+
                 content = el.querySelector(".city-name span").textContent.toLowerCase();
             }
             return content == inputVal.toLowerCase();
@@ -74,7 +76,6 @@ form.addEventListener("submit", e => {
         <div class="wind-speed">${wind.speed}<sup> MPH Wind Speed</sup></div>
         <div class="wind-speed">${main.humidity}<sup> % Humidity</sup></div>
         <div class="wind-speed">${wind.speed}<sup> UV Rating</sup></div>
-
         <figure>
           <img class="city-icon" src="${icon}" alt="${
                     weather[0]["description"]
@@ -86,12 +87,12 @@ form.addEventListener("submit", e => {
       `;
                 li.innerHTML = markup;
                 list.appendChild(li);
+                list.appendChild(li);
             })
             .catch(() => {
                 msg.textContent = "Please search for a valid city";
             });
     };
-
     getweather()
 
     function fiveDayForecast(data) {
@@ -101,16 +102,16 @@ form.addEventListener("submit", e => {
             .then(response => response.json())
             .then(data => {
 
-                const { main, name, sys, weather, wind } = data;
+                const { name, sys, weather, wind } = data;
                 console.log("DATA: ", data);
                 console.log("data.list[0].wind.speed: ", data.list[0].wind.speed);
-                console.log("wind.speed: ", wind.speed);
 
-                for (var i = 0; i <i<data.length;i+8) {
+
+                for (var i = 0; i < data.list.length; i + 8) {
                     if (data.list[i].dt_txt.includes("12:00:00")) {
                         const li = document.createElement("li");
                         li.classList.add("5dayforecast");
-        
+
                         const markup = `
                         <h2 class="city-name" data-name="${name},${sys.country}">
                           <span>${name}</span>
@@ -120,29 +121,27 @@ form.addEventListener("submit", e => {
 
                         <figure>
                           <img class="city-icon" src="${icon}" alt="${
-                                    weather[0]["description"]
-                
-                
-                                    }">
+                            weather[0]["description"]
+                            }">
                           <figcaption>${weather[0]["description"]}</figcaption>
                         </figure>
                       `;
-                                li.innerHTML = markup;
-                                list.appendChild(li);
-                        
+                        li.innerHTML = markup;
+                        list2.appendChild(li);
+
                         //append the various html and information returned from the data object such as dataInfo.weather[0].description
                     };
                 };
             });
-        };
-
-    
-    
+    };
 
 
-fiveDayForecast()
 
-msg.textContent = "";
-form.reset();
-input.focus();
+
+
+    fiveDayForecast()
+
+    msg.textContent = "";
+    form.reset();
+    input.focus();
 });

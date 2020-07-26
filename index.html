@@ -9,9 +9,6 @@
     <!-- Compressed CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css"
         integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
-    <!-- Compressed JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/js/foundation.min.js"
-        integrity="sha256-pRF3zifJRA9jXGv++b06qwtSqX1byFQOLjqa2PTEb2o=" crossorigin="anonymous"></script>
 
     <title>Document</title>
 </head>
@@ -19,33 +16,33 @@
 <body>
     <section class="top-banner">
         <div class="container">
-          <h1 class="heading">Weather Dashboard</h1>
-          <form>
-            <input type="text" id = "searchbox" placeholder="Search for a city" autofocus> <button type="submit">SUBMIT</button>
-            <span class="msg"></span>
-          </form>
+            <h1 class="heading">Weather Dashboard</h1>
+            <form>
+                <input type="text" id="searchbox" placeholder="Search for a city" autofocus> <button
+                    type="submit">SUBMIT</button>
+                <span class="msg"></span>
+            </form>
 
         </div>
         <section class="ajax-section">
             <div class="container">
-        <h2 class="headerbar">Weekly Forecast</h2>
-    </div>
-      </section>
-      <section class="ajax-section">
-        <div class="container">
-          <ul class="5dayforecast"></ul>
-          <h2 class="headerbar">Daily Forecast</h2>
-        </div>
-      <section class="ajax-section">
-        <div class="container">
-          <ul class="cities"></ul>
-        </div>
- 
-      </section>
-      <footer class="page-footer">
-        <div class="container">
-        </div>
-      </footer>
+                <h2 class="headerbar">Weekly Forecast</h2>
+                <ul class="weekforecast"></ul>
+            </div>
+        </section>
+
+        <section class="ajax-section">
+            <div class="container">
+                <h2 class="headerbar">Daily Forecast</h2>
+                <ul class="cities"></ul>
+            </div>
+
+        </section>
+        <footer class="page-footer">
+            <div class="container">
+            </div>
+        </footer>
 </body>
 <script src="script.js"></script>
+
 </html>
