@@ -211,6 +211,14 @@ body {
   font-size: 0.5em;
 }
 
+.block {
+  display: inline;
+}
+
+.weekforecast {
+
+  display: inline;
+}
 .ajax-section .city-name sup {
   padding: 0.2em 0.6em;
   border-radius: 30px;

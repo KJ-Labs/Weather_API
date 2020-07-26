@@ -102,11 +102,8 @@ form.addEventListener("submit", e => {
             .then(response => response.json())
             .then(data => {
 
-                const { name, sys, weather, wind } = data;
+             
                 console.log("DATA: ", data);
-                console.log("data.list[0].wind.speed: ", data.list[0].wind.speed);
-
-
                 for(let i=0; i< data.list.length; i++){
                     if (data.list[i].dt_txt.includes("12:00:00")) {
                         const div = document.createElement("div");
@@ -114,14 +111,11 @@ form.addEventListener("submit", e => {
                         div.classList.add("weekforecast2");
 
                   const markup = `
-                  <figure>
-                  <div class="city-temp">${Math.round((data.list[0].main.temp * 1.80 + 32))}<sup>°F</sup></div>
-                  <div class="city-temp">${data.list[0].wind.speed}<sup>Wind Speed</sup></div>
-                  <div class="city-temp">${data.list[0].main.humidity}<sup>Humidity</sup></div>
-
-
-                    
-                      </figure>
+                  <div class="wind-speed">${name}<sup>Namegoeshere</sup></div>
+                  <div class="wind-speed">${data.list[i].dt_txt}<sup></sup></div>
+                  <div class="wind-speed">${Math.round((data.list[i].main.temp * 1.80 + 32))}<sup>°F</sup></div>
+                  <div class="wind-speed">${data.list[i].wind.speed}<sup> Wind Speed</sup></div>
+                  <div class="wind-speed">${data.list[i].main.humidity}<sup>% Humidity</sup></div>
                       `;
                         div.innerHTML = markup;
                         list2.appendChild(div);
