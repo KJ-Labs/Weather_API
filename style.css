@@ -227,21 +227,27 @@ body {
   font-size: 2rem;
   font-weight: bold;
   margin-top: 10px;
-  color: red;
+  background-color: red;
+  color: black; 
+  text-align: center;
 }
 
 .ajax-section .wind-speedgreen {
   font-size: 2rem;
   font-weight: bold;
   margin-top: 10px;
-  color: green;
+  background-color: green;
+  color: black; 
+  text-align: center;
 }
 
-.ajax-section .wind-speedgreen {
+.ajax-section .wind-speedyellow {
   font-size: 2rem;
   font-weight: bold;
   margin-top: 10px;
-  color: yellow;
+  background-color: yellow;
+  color: black; 
+  text-align: center;
 }
 
 .ajax-section .forecast5 {

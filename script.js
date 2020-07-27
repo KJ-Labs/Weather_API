@@ -30,7 +30,7 @@ for (let i = 0; i < retrievedData.length; i++) {
         <div class="city-temp">${Math.round((retrievedData[i].main.temp * 1.80 + 32))}<sup>°F</sup></div>
         <div class="wind-speed">${retrievedData[i].wind.speed}<sup> MPH Wind Speed</sup></div>
         <div class="wind-speed">${retrievedData[i].main.humidity}<sup> % Humidity</sup></div>
-        <div class="wind-speed">${retrievedData[i].uv}<sup> UV Index</sup></div>
+        <div id = "uv">${retrievedData[i].uv}<sup> UV Index</sup></div>
         <figure>
           <img class="city-icon" src="${icon}" alt="${
             retrievedData[i].weather[0]["description"]
@@ -42,8 +42,20 @@ for (let i = 0; i < retrievedData.length; i++) {
       `;
                 li.innerHTML = markup;
                 list.prepend(li);
+
+                var element = document.getElementById("uv")
+                if (uv <= 4){
+                    element.classList.add("wind-speedgreen")
+                } else if (uv <= 10){
+                    element.classList.add("wind-speedyellow")
+                } else {
+                    element.classList.add("wind-speedred")
+          
+                }
+                
     cardDataArray.push(retrievedData[i])
 }
+
 
 //listener for button
 form.addEventListener("submit", e => {
@@ -93,14 +105,7 @@ form.addEventListener("submit", e => {
                     .then(response => response.json())
                     .then(data => {console.log(data.value)
                         var uv = data.value;
-                        console.log('your uv is ' + uv);
-                    if (uv < 3){
-                    uv.color = "green" 
-                    } else if (uv <7 ){
-                        uv.color = "yellow" 
-                    } else {
-                        uv.color = "red" 
-                    }
+
                     
                 console.log(data); 
                 console.log(uv);
@@ -118,19 +123,26 @@ form.addEventListener("submit", e => {
         <div class="city-temp">${Math.round((main.temp * 1.80 + 32))}<sup>°F</sup></div>
         <div class="wind-speed">${wind.speed}<sup> MPH Wind Speed</sup></div>
         <div class="wind-speed">${main.humidity}<sup> % Humidity</sup></div>
-        <div class="wind-speed" >${uv}<sup> UV Index</sup></div>
+        <div id = "uv">${uv}<sup> UV Index</sup></div>
         <figure>
           <img class="city-icon" src="${icon}" alt="${
                     weather[0]["description"]
-
-
                     }">
           <figcaption>${weather[0]["description"]}</figcaption>
         </figure>
       `;
                 li.innerHTML = markup;
                 list.prepend(li);
-                cardDataArray.push({ main, name, sys, weather, wind, uv })
+                var element = document.getElementById("uv")
+                if (uv <= 4){
+                    element.classList.add("wind-speedgreen")
+                } else if (uv <= 10){
+                    element.classList.add("wind-speedyellow")
+                } else {
+                    element.classList.add("wind-speedred")
+          
+                }
+                cardDataArray.push({ main, name, sys, weather, wind, uv, element })
                 localStorage.setItem('cardDataArray', JSON.stringify(cardDataArray))
                 })
             })
