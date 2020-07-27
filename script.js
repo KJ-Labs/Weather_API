@@ -52,12 +52,8 @@ for (let i = 0; i < retrievedData.length; i++) {
     li.onclick = function() {
     console.log(retrievedData[i].name);
     }
-
-
     cardDataArray.push(retrievedData[i])
-
 }
-
 
 //Submit Button to Pass Data down to the Daily and Weekly Forecasts
 form.addEventListener("submit", e => {
