@@ -1,4 +1,3 @@
-
 //Variables 
 const form = document.querySelector(".top-banner form");
 const input = document.querySelector(".top-banner input");
@@ -102,7 +101,7 @@ form.addEventListener("submit", e => {
             .then(data => {
                 const { main, name, sys, weather, wind } = data;
 
-                fetch(`https://api.openweathermap.org/data/2.5/uvi/forecast?&units=imperial&appid=${apiKey}&lat=${data.city.coord.lat}&lon=${data.city.coord.lon}`)
+                fetch("https://api.openweathermap.org/data/2.5/uvi?appid=4d8fb5b93d4af21d66a2948710284366&lat=" + data.coord.lat + "&lon=" + data.coord.lon)
                     .then(response => response.json())
                     .then(data => {
                         var uv = data.value;
@@ -188,5 +187,3 @@ form.addEventListener("submit", e => {
     form.reset();
     input.focus();
 });
-
-
