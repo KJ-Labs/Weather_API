@@ -49,8 +49,9 @@ for (let i = 0; i < retrievedData.length; i++) {
     }
 
     var cityname = document.getElementById('namething')
-    li.onclick = function () {
+    cityname.onclick = function () {
         console.log(retrievedData[i].name);
+        document.getElementById("searchbox").value = retrievedData[i].name;
     }
 
 
@@ -142,6 +143,12 @@ form.addEventListener("submit", e => {
                         }
                         cardDataArray.push({ main, name, sys, weather, wind, uv, element })
                         localStorage.setItem('cardDataArray', JSON.stringify(cardDataArray))
+//attempting to set the cityname to the input value, so that the user can see the weekly forecast again. 
+                        var cityname = document.getElementById('namething')
+                        cityname.onclick = function () {
+                            console.log(cityname);
+                            document.getElementById("searchbox").value = cityname;
+                        }
                     })
             })
             .catch(() => {
