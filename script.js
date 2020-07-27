@@ -53,8 +53,6 @@ for (let i = 0; i < retrievedData.length; i++) {
         console.log(retrievedData[i].name);
         document.getElementById("searchbox").value = retrievedData[i].name;
     }
-
-
     cardDataArray.push(retrievedData[i])
 
 }
@@ -147,7 +145,7 @@ form.addEventListener("submit", e => {
                         var cityname = document.getElementById('namething')
                         cityname.onclick = function () {
                             console.log(cityname);
-                            document.getElementById("searchbox").value = cityname;
+                            document.getElementById("searchbox").value = name;
                         }
                     })
             })
