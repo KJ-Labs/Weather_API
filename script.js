@@ -4,6 +4,7 @@ const input = document.querySelector(".top-banner input");
 const msg = document.querySelector(".top-banner .msg");
 const list = document.querySelector(".ajax-section .cities");
 const list2 = document.querySelector(".ajax-section .weekforecast");
+var clearbtn = document.getElementById(".clear");
 var today = new Date();
 var dd = String(today.getDate()).padStart(2, '0');
 var mm = String(today.getMonth() + 1).padStart(2, '0');
@@ -23,8 +24,8 @@ for (let i = 0; i < retrievedData.length; i++) {
     li.classList.add("city");
     const markup = `
         <h2 class="city-name" data-name="${retrievedData[i].name},${retrievedData[i].sys.country}">
-          <span id = 'namething'>${retrievedData[i].name}</span>
-          <sup>${retrievedData[i].sys.country}</sup>
+        <span id = 'namething'>${retrievedData[i].name}</span>
+        <sup>${retrievedData[i].sys.country}</sup>
         </h2>
         <div class="date-div">${today}</div>
         <div class="city-temp">${Math.round((retrievedData[i].main.temp * 1.80 + 32))}<sup>°F</sup></div>
@@ -32,8 +33,8 @@ for (let i = 0; i < retrievedData.length; i++) {
         <div class="wind-speed">${retrievedData[i].main.humidity}<sup> % Humidity</sup></div>
         <div id = "uv" >${retrievedData[i].uv}<sup> UV Index</sup></div>
         <figure>
-          <img class="city-icon" src="${icon}" alt="${retrievedData[i].weather[0]["description"]}">
-          <figcaption>${retrievedData[i].weather[0]["description"]}</figcaption>
+            <img class="city-icon" src="${icon}" alt="${retrievedData[i].weather[0]["description"]}">
+            <figcaption>${retrievedData[i].weather[0]["description"]}</figcaption>
         </figure>`;
     li.innerHTML = markup;
     list.prepend(li);
@@ -48,14 +49,22 @@ for (let i = 0; i < retrievedData.length; i++) {
     }
 
     var cityname = document.getElementById('namething')
-    li.onclick = function() {
-    console.log(retrievedData[i].name);
+    li.onclick = function () {
+        console.log(retrievedData[i].name);
     }
 
 
     cardDataArray.push(retrievedData[i])
 
 }
+
+
+
+document.getElementById("clear").addEventListener("click", function (){
+   localStorage.clear();
+   location.reload();
+   console.log('clear_button_working')
+});
 
 
 //Submit Button to Pass Data down to the Daily and Weekly Forecasts
@@ -83,17 +92,10 @@ form.addEventListener("submit", e => {
             return content == inputVal.toLowerCase();
         });
 
-        if (filteredArray.length > 0) {
-            msg.textContent = `You already know the weather for ${
-                filteredArray[0].querySelector(".city-name span").textContent
-                } `;
-            form.reset();
-            input.focus();
-            return;
-        }
+
     }
 
-//Gets the current day's forecast
+    //Gets the current day's forecast
     function getweather() {
         const url = `https://api.openweathermap.org/data/2.5/weather?q=${inputVal}&appid=${apiKey}&units=metric`;
         fetch(url)
@@ -122,8 +124,8 @@ form.addEventListener("submit", e => {
                             <div id = "uv">${uv}<sup> UV Index</sup></div>
                             <figure>
                             <img class="city-icon" src="${icon}" alt="${
-                                                weather[0]["description"]
-                                                }">
+                            weather[0]["description"]
+                            }">
                             <figcaption>${weather[0]["description"]}</figcaption>
                             </figure>
       `;
@@ -148,7 +150,7 @@ form.addEventListener("submit", e => {
     };
     getweather()
 
-//Gets the weekly forecast
+    //Gets the weekly forecast
     function fiveDayForecast(data) {
         const url = `https://api.openweathermap.org/data/2.5/forecast?q=${inputVal}&appid=${apiKey}&units=metric`
         fetch(url)
@@ -186,4 +188,6 @@ form.addEventListener("submit", e => {
 
     form.reset();
     input.focus();
+
 });
+
