@@ -1,3 +1,5 @@
+
+//Variables 
 const form = document.querySelector(".top-banner form");
 const input = document.querySelector(".top-banner input");
 const msg = document.querySelector(".top-banner .msg");
@@ -11,19 +13,18 @@ today = mm + '/' + dd + '/' + yyyy;
 const apiKey = "4d8fb5b93d4af21d66a2948710284366";
 
 
+
+//Local Storage for the Daily Forecast Cards
 let cardDataArray = [];
 const retrievedData = JSON.parse(localStorage.getItem('cardDataArray')) || [];
 for (let i = 0; i < retrievedData.length; i++) {
-    const icon = `https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/${
-        retrievedData[i].weather[0]["icon"]
-        }.svg`;
+    const icon = `https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/${retrievedData[i].weather[0]["icon"]}.svg`;
 
-    console.log(cardDataArray);
     const li = document.createElement("li");
     li.classList.add("city");
     const markup = `
         <h2 class="city-name" data-name="${retrievedData[i].name},${retrievedData[i].sys.country}">
-          <span>${retrievedData[i].name}</span>
+          <span id = 'namething'>${retrievedData[i].name}</span>
           <sup>${retrievedData[i].sys.country}</sup>
         </h2>
         <div class="date-div">${today}</div>
@@ -32,14 +33,9 @@ for (let i = 0; i < retrievedData.length; i++) {
         <div class="wind-speed">${retrievedData[i].main.humidity}<sup> % Humidity</sup></div>
         <div id = "uv" >${retrievedData[i].uv}<sup> UV Index</sup></div>
         <figure>
-          <img class="city-icon" src="${icon}" alt="${
-        retrievedData[i].weather[0]["description"]
-
-
-        }">
+          <img class="city-icon" src="${icon}" alt="${retrievedData[i].weather[0]["description"]}">
           <figcaption>${retrievedData[i].weather[0]["description"]}</figcaption>
-        </figure>
-      `;
+        </figure>`;
     li.innerHTML = markup;
     list.prepend(li);
 
@@ -50,15 +46,20 @@ for (let i = 0; i < retrievedData.length; i++) {
         element.classList.add("wind-speedyellow")
     } else {
         element.classList.add("wind-speedred")
-
     }
 
+    var cityname = document.getElementById('namething')
+    li.onclick = function() {
+    console.log(retrievedData[i].name);
+    }
+
+
     cardDataArray.push(retrievedData[i])
+
 }
 
 
-
-//listener for button
+//Submit Button to Pass Data down to the Daily and Weekly Forecasts
 form.addEventListener("submit", e => {
     e.preventDefault();
     let inputVal = input.value;
@@ -93,24 +94,18 @@ form.addEventListener("submit", e => {
         }
     }
 
-    //current date api call 
-    function getweather(data) {
-console.log("anything");
+//Gets the current day's forecast
+    function getweather() {
         const url = `https://api.openweathermap.org/data/2.5/weather?q=${inputVal}&appid=${apiKey}&units=metric`;
         fetch(url)
             .then(response => response.json())
             .then(data => {
-                const { main, name, sys, weather, wind, coord } = data;
+                const { main, name, sys, weather, wind } = data;
 
                 fetch("http://api.openweathermap.org/data/2.5/uvi?appid=4d8fb5b93d4af21d66a2948710284366&lat=" + data.coord.lat + "&lon=" + data.coord.lon)
                     .then(response => response.json())
                     .then(data => {
-                        console.log(data.value)
                         var uv = data.value;
-
-
-                        console.log(data);
-                        console.log(uv);
                         const icon = `https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/${
                             weather[0]["icon"]
                             }.svg`;
@@ -118,7 +113,7 @@ console.log("anything");
                         li.classList.add("city");
                         const markup = `
                             <h2 class="city-name" data-name="${name},${sys.country}">
-                            <span>${name}</span>
+                            <span id = 'namething'>${name}</span>
                             <sup>${sys.country}</sup>
                             </h2>
                             <div class="date-div">${today}</div>
@@ -154,7 +149,7 @@ console.log("anything");
     };
     getweather()
 
-    // weekly forecast api call
+//Gets the weekly forecast
     function fiveDayForecast(data) {
         const url = `https://api.openweathermap.org/data/2.5/forecast?q=${inputVal}&appid=${apiKey}&units=metric`
         fetch(url)
@@ -178,26 +173,18 @@ console.log("anything");
                   <div class="forecast5">${data.list[i].main.humidity}<sup>% Humidity</sup></div>
                   <div class="forecast5">${data.list[i].weather[0].description}</div>
                   <figure>
-                  <img class="city-icon" src="${icon}" alt="${
-                            data.list[i].weather[0].description
-
-
-                            }">
+                  <img class="city-icon" src="${icon}" alt="${data.list[i].weather[0].description}">
                   <figcaption>${data.list[i].weather[0].description}</figcaption>
-                </figure>
-  
-                      `;
+                </figure>`;
                         div.innerHTML = markup;
                         list2.prepend(div);
-
-
                     };
                 };
             });
     };
     fiveDayForecast()
 
-    msg.textContent = "";
+
     form.reset();
     input.focus();
 });
