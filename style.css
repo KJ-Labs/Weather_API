@@ -173,7 +173,7 @@ body {
 /* SECTION #2
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .ajax-section {
-  margin: 70px 0 20px;
+  margin: 10px 0 20px;
 }
 
 .ajax-section .cities {
@@ -322,7 +322,7 @@ body {
   }
   
   .ajax-section {
-    margin-top: 20px;
+    margin-top: 10px;
   }
   
   .top-banner form {
