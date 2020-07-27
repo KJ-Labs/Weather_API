@@ -102,7 +102,7 @@ form.addEventListener("submit", e => {
             .then(data => {
                 const { main, name, sys, weather, wind } = data;
 
-                fetch("http://api.openweathermap.org/data/2.5/uvi?appid=4d8fb5b93d4af21d66a2948710284366&lat=" + data.coord.lat + "&lon=" + data.coord.lon)
+                fetch("https://api.openweathermap.org/data/2.5/uvi?appid=4d8fb5b93d4af21d66a2948710284366&lat=" + data.coord.lat + "&lon=" + data.coord.lon)
                     .then(response => response.json())
                     .then(data => {
                         var uv = data.value;
