@@ -2,53 +2,61 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="description"
+        content="Weather Dashboard that pulls the current and 5 day forecast for the user submitted city.">
+    <meta name="Weather API" content="Weather, Forecast, API">
+    <title>Weather API</title>
 
-    <!-- Compressed CSS -->
+    <!-- Adding in the style sheets -->
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css"
         integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
-
-    <title>Document</title>
 </head>
 
 <body>
+
+    <!-- Adding in the header bar -->
     <section class="top-banner">
-        <div class="container">
+        <section class="container">
             <h1 class="heading">Weather Dashboard</h1>
+
+            <!-- Adding in the city serach function -->
             <form>
                 <input type="text" id="searchbox" placeholder="Search for a city and hit enter" autofocus>
-                 
                 <span class="msg"></span>
             </form>
+            <!-- Adding in a clear button so that users can reduce what is on screen -->
             <form>
                 <input type="text" id="clear" placeholder="Clear Data" autofocus>
-
                 <span class="msg"></span>
             </form>
-        </div>
+        </section>
 
+        <!-- Adding in the header for daily forecast and creating the list for JS -->
         <section class="ajax-section">
-            <div class="container">
+            <section class="container">
                 <h2 class="headerbar">Daily Forecast</h2>
                 <ul class="cities"></ul>
-            </div>
-            
+            </section>
+
+            <!-- Adding in the header for weekly forecast and creating the div section for JS -->
             <section class="ajax-section">
-                <div class="container">
+                <section class="container">
                     <h2 class="headerbar">Weekly Forecast
                     </h2>
-                    <div class="weekforecast"></div>
-                </div>
+                    <section class="weekforecast"></section>
+                </section>
             </section>
 
 
 
         </section>
         <footer class="page-footer">
-            <div class="container">
-            </div>
+            <section class="container">
+            </section>
         </footer>
 </body>
 <script src="script.js"></script>

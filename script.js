@@ -1,4 +1,4 @@
-//Variables 
+//Variables
 const form = document.querySelector(".top-banner form");
 const input = document.querySelector(".top-banner input");
 const msg = document.querySelector(".top-banner .msg");
@@ -14,7 +14,7 @@ const apiKey = "4d8fb5b93d4af21d66a2948710284366";
 
 
 
-//Local Storage for the Daily Forecast Cards
+//Local Storage for the Daily Forecast Cards - data is from the get weather function
 let cardDataArray = [];
 const retrievedData = JSON.parse(localStorage.getItem('cardDataArray')) || [];
 for (let i = 0; i < retrievedData.length; i++) {
@@ -36,9 +36,10 @@ for (let i = 0; i < retrievedData.length; i++) {
             <img class="city-icon" src="${icon}" alt="${retrievedData[i].weather[0]["description"]}">
             <figcaption>${retrievedData[i].weather[0]["description"]}</figcaption>
         </figure>`;
+
     li.innerHTML = markup;
     list.prepend(li);
-
+    // This section changes the UV element to be a certain color depending on the UV index.
     var element = document.getElementById("uv")
     if (retrievedData[i].uv <= 4) {
         element.classList.add("wind-speedgreen")
@@ -48,25 +49,26 @@ for (let i = 0; i < retrievedData.length; i++) {
         element.classList.add("wind-speedred")
     }
 
+    // This section is to push the city name back to the search bar,
+    // so the user can see the most up to date forecast for the city.
     var cityname = document.getElementById('namething')
     cityname.onclick = function () {
-        console.log(retrievedData[i].name);
         document.getElementById("searchbox").value = retrievedData[i].name;
     }
     cardDataArray.push(retrievedData[i])
-
 }
 
 
-
-document.getElementById("clear").addEventListener("click", function (){
-   localStorage.clear();
-   location.reload();
-   console.log('clear_button_working')
+// This section is to clear the local storage, so that the user can restart.
+document.getElementById("clear").addEventListener("click", function () {
+    localStorage.clear();
+    location.reload();
+    console.log('clear_button_working')
 });
 
 
-//Submit Button to Pass Data down to the Daily and Weekly Forecasts
+// This section is a listener for the submit form area which passes
+// the city name down to weather and fiveDayForecast so that their cards are generated.
 form.addEventListener("submit", e => {
     e.preventDefault();
     let inputVal = input.value;
@@ -93,8 +95,7 @@ form.addEventListener("submit", e => {
 
 
     }
-
-    //Gets the current day's forecast
+    //This section gets the name from the listener, goes to open weather and gets the info needed.
     function getweather() {
         const url = `https://api.openweathermap.org/data/2.5/weather?q=${inputVal}&appid=${apiKey}&units=metric`;
         fetch(url)
@@ -126,8 +127,8 @@ form.addEventListener("submit", e => {
                             weather[0]["description"]
                             }">
                             <figcaption>${weather[0]["description"]}</figcaption>
-                            </figure>
-      `;
+                            </figure>`;
+                        //This section is to turn the card green/yellow/red depending on the UV index. This section is for it, before it enters local storage.
                         li.innerHTML = markup;
                         list.prepend(li);
                         var element = document.getElementById("uv")
@@ -137,11 +138,12 @@ form.addEventListener("submit", e => {
                             element.classList.add("wind-speedyellow")
                         } else {
                             element.classList.add("wind-speedred")
-
                         }
                         cardDataArray.push({ main, name, sys, weather, wind, uv, element })
                         localStorage.setItem('cardDataArray', JSON.stringify(cardDataArray))
-//attempting to set the cityname to the input value, so that the user can see the weekly forecast again. 
+
+                        //This section allows the user to select the card info into the search bar
+                        // It is for when the data has not been committed to local storage, but the user still wants to see that city again
                         var cityname = document.getElementById('namething')
                         cityname.onclick = function () {
                             console.log(cityname);
@@ -155,7 +157,7 @@ form.addEventListener("submit", e => {
     };
     getweather()
 
-    //Gets the weekly forecast
+    //This section gets the weekly forecast by using the city entered in the submit form box.
     function fiveDayForecast(data) {
         const url = `https://api.openweathermap.org/data/2.5/forecast?q=${inputVal}&appid=${apiKey}&units=metric`
         fetch(url)
@@ -190,9 +192,7 @@ form.addEventListener("submit", e => {
     };
     fiveDayForecast()
 
-
+    //resets the form after you type in your city, so you can type in another quickly.
     form.reset();
-    input.focus();
-
 });
 
