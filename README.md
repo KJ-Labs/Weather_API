@@ -13,6 +13,10 @@ If the user wants to clear the data for a new day, they can simply press the cle
 
 Test Notes: If you want to see the same city repeatedly, please click on that card again and then hit enter in the searchbox, a new card will be generated at the leftmost side and and a new 5 day forecast will be brought to the top of the weekly forecast. 
 
+Technologies Used: HTML, CSS, Javascript, AJAX, Open Weather API
+
+License: MIT
+
 Link to Website: https://kj-labs.github.io/Weather_API/?
 
 Screenshots:![Alt text](https://github.com/KJ-Labs/Weather_API/blob/master/screenshots.PNG "Screenshots")
