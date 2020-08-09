@@ -17,6 +17,6 @@ Technologies Used: HTML, CSS, Javascript, AJAX, Open Weather API
 
 License: MIT
 
-Link to Website: https://kj-labs.github.io/Weather_API/?
+Link to Website: https://kj-labs.github.io/Weather_API_Dashboard/?
 
 Screenshots:![Alt text](https://github.com/KJ-Labs/Weather_API/blob/master/screenshots.PNG "Screenshots")
